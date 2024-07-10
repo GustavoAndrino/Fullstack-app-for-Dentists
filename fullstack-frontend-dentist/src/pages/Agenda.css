@@ -2,18 +2,34 @@
     display: flex;
     align-items: center;
     justify-content: space-between; 
+    font-family:'Courier New', Courier, monospace;
 }
 
 
 .button2{
     background-color: rgb(210, 208, 219);
-    margin-left: 10px;
+    margin-left: 12px;
     margin-right: 10px;
     margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button2:hover{
+    background-color: rgb(210, 208, 219);
+    margin-left: 12px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: none;
+    filter: invert(1);
+    transition: 0.3s;
 }
 
 .special-h1{
     margin: 0 auto;
+    font-size: 50px;
 }
 
 .agenda th{
@@ -52,4 +68,18 @@
 .button:hover{
     filter: invert(1);
     transition: 0.3s;
+}
+
+.pretty{
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1 );
+}
+
+.finalTest{
+    background-color: rgb(153, 153, 200);
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Courier New', Courier, monospace;
+
 }

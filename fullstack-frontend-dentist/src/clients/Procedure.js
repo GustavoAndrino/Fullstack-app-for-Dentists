@@ -8,6 +8,7 @@ export const Procedure = () => {
 
     const [procedure, setProcedure] = useState([]);
 
+
     useEffect(() =>{
         loadProcedure();
     }, [])

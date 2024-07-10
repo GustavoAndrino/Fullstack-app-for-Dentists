@@ -1,5 +1,7 @@
 package com.Fullstack_Dentist.backend.repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +15,6 @@ public interface ProcedureRepository extends JpaRepository<Procedure, Long> {
 	Optional<Procedure> findByProcedureName(String procedureName);
 	
 	List<Procedure> findByClientId(Long clientId);
+	
+	List<Procedure> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 }

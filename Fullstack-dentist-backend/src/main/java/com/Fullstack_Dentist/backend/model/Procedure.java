@@ -2,6 +2,7 @@ package com.Fullstack_Dentist.backend.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -17,8 +18,8 @@ public class Procedure {
 	@GeneratedValue
 	private Long id;
 	private String procedureName;
-	@JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime date;
 	private Double value;
 	
 	@ManyToOne
@@ -29,7 +30,7 @@ public class Procedure {
 		
 	}
 	
-	public Procedure(String procedureName, LocalDate date, Double value) {
+	public Procedure(String procedureName, LocalDateTime date, Double value) {
 		super();
 		this.procedureName = procedureName;
 		this.date = date;
@@ -42,10 +43,10 @@ public class Procedure {
 	public void setProcedure(String procedure) {
 		this.procedureName = procedure;
 	}
-	public LocalDate getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
-	public void setDate(LocalDate date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 	public Double getValue() {

@@ -1,5 +1,9 @@
 package com.Fullstack_Dentist.backend.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,5 +32,12 @@ public class ProcedureService {
 	  public List<Procedure> findProceduresByClientId(Long clientId) {
 	        return procedureRepository.findByClientId(clientId);
 	    }
+	  
+	  public List<Procedure> findProcedureByWeek(LocalDateTime date){
+		  LocalDateTime inicioSemana = date.minusDays(date.getDayOfWeek().getValue()-1);
+		  LocalDateTime fimSemana = inicioSemana.plusDays(6); 
+	       
+	       return procedureRepository.findByDateBetween(inicioSemana, fimSemana);
+	  }
 
 }

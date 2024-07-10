@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './Agenda.css';
 import axios from 'axios';
 import { ArrowBackOutline, ArrowForwardOutline } from 'react-ionicons'
+import { Link } from 'react-router-dom';
 
 
 const Agenda = ({ days, hours }) => {
@@ -10,9 +11,11 @@ const Agenda = ({ days, hours }) => {
 
   const [date, setDate] = useState(new Date());
   const [semana, setSemana] = useState([]);
+  const [procedures, setProcedures] = useState([]);
 
   useEffect(() => {
     loadSemana();
+    loadProcedures();
   }, [date])
 
   const incrementDate = () => {
@@ -31,6 +34,11 @@ const Agenda = ({ days, hours }) => {
     const newDate = new Date();
     setDate(newDate);
 
+  }
+
+  const loadProcedures = async () => {
+    const result = await axios.get(`http://localhost:8080/proceduresofweek?date=${formattedDate}%2000:00`)
+    setProcedures(result.data)
   }
 
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -59,11 +67,21 @@ const Agenda = ({ days, hours }) => {
     setSemana(semanaArray);
   }
 
-  if (formattedDate2 === semana[1]) {
-    console.log("equals")
-  } else {
-    console.log("not equal")
+  const checkProcedureDate = (date, day, hour) => {
+    const dateObj = new Date(date);
+    const newDate = day + '/2024 ' + hour //PEGAR ANO ATUAL E NÃO SÓ 2024
+
+    if (newDate == date) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+  procedures.map(proc =>{
+    console.log('space')
+    console.log(proc.date)
+  })
 
   return (
     <div className="agenda">
@@ -73,7 +91,7 @@ const Agenda = ({ days, hours }) => {
       </div>
       <table className="table table-bordered table-custom table-shadow">
         <thead>
-          <tr>
+          <tr className='pretty'>
             <th className='center'>
               <button className='button' onClick={decrementDate}>
                 <ArrowBackOutline
@@ -103,9 +121,15 @@ const Agenda = ({ days, hours }) => {
           {hours.map(hour => (
             <tr key={hour}>
               <th scope="row">{hour}</th>
-              {days.map(day => (
-                <td key={`${day}-${hour}`}>
-                  {/* Render events or placeholders for events */}
+              {days.map((day, index) => (
+                <td key={`${day}-${hour}`} className='finalTest'>
+                  {procedures.map(proc => (
+                    (checkProcedureDate(proc.date, semana[index], hour)) && (
+                      <div className='finalTest'>
+                        {proc.procedure}
+                      </div>
+                    )
+                  ))}
                 </td>
               ))}
             </tr>

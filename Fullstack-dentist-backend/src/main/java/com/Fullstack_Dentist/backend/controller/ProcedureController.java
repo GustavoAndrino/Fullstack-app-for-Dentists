@@ -1,12 +1,15 @@
 package com.Fullstack_Dentist.backend.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Fullstack_Dentist.backend.model.Procedure;
@@ -32,5 +35,11 @@ public class ProcedureController {
 	@GetMapping("/procedure/{clientId}")
     public List<Procedure> getProceduresByClientId(@PathVariable Long clientId) {
         return procedureService.findProceduresByClientId(clientId);
+    }
+	
+	@GetMapping("/proceduresofweek")
+    public List<Procedure> getProceduresByDate(@RequestParam("date") 
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm") LocalDateTime date) {
+        return procedureService.findProcedureByWeek(date);
     }
 }
