@@ -1,0 +1,55 @@
+.special-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+
+.button2{
+    background-color: rgb(210, 208, 219);
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.special-h1{
+    margin: 0 auto;
+}
+
+.agenda th{
+    color: grey;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.table-shadow{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1 );
+    margin-top: 25px;
+}
+
+.agenda{
+    margin-top: 10px;
+}
+
+.center{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.highlight{
+    background-color: rgb(153, 153, 200) !important;
+    color: white !important;
+}
+
+.button{
+    background-color: rgb(255, 255, 255);
+    border-color: rgba(0, 255, 255, 0);
+    border-radius: 5px;
+    margin: 2px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.button:hover{
+    filter: invert(1);
+    transition: 0.3s;
+}

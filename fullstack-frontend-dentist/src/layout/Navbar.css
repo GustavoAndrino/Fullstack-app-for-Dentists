@@ -1,0 +1,18 @@
+.custom-navbar {
+    /*border-bottom: 0.1px solid black; /* Black border with 1px width */
+    background: rgb(210, 208, 219);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1 );
+}
+
+.navbar-brand{
+    font-style: italic;
+    border-bottom: 1px solid black;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.navbar-brand:hover{
+    color: white;
+    background-color: black;
+    transition: 0.3s;
+}
