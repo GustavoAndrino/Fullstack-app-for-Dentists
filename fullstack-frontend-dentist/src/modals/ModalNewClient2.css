@@ -1,0 +1,6 @@
+.ModalButtons{
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0px;
+}
