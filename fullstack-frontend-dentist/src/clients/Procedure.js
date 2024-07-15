@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import Navbar from '../layout/Navbar'; // Import Navbar
 
 export const Procedure = () => {
 
@@ -8,10 +9,9 @@ export const Procedure = () => {
 
     const [procedure, setProcedure] = useState([]);
 
-
-    useEffect(() =>{
-        loadProcedure();
-    }, [])
+    useEffect(() => {
+      loadProcedure(); // Use loadProcedure directly here
+  }, []);
 
      const loadProcedure= async() => {
         const result = await axios.get(`http://localhost:8080/procedure/${id}`)
@@ -20,7 +20,11 @@ export const Procedure = () => {
 
   return (
     <div>
-        <h1 className=''>Procedimentos do client {id}</h1>
+        {procedure.length > 0 ? (
+                <h1>Procedimentos do paciente: {procedure[0].clientName}</h1>
+            ) : (
+                <h1>Loading...</h1>
+            )}
 <table class="table">
   <thead>
     <tr>
@@ -45,4 +49,4 @@ export const Procedure = () => {
 </table>
     </div>
   )
-}
+};

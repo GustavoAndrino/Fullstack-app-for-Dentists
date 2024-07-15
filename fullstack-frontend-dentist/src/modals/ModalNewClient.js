@@ -41,7 +41,7 @@ export const ModalNewClient = ({ isOpen, onClose, onSubmit }) => {
     e.preventDefault();
     try {
       if (client.name.length < 1 || client.email.length < 1) {
-        setError2("Empty Name")
+        setError2("Empty Value")
       } else {
         await axios.post("http://localhost:8080/client", client)
         onClose();

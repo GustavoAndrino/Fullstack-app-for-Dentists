@@ -21,7 +21,9 @@ public class Procedure {
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime date;
 	private Double value;
-	
+	private String clientName;
+
+
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
@@ -58,5 +60,10 @@ public class Procedure {
 
 	public void setClient(Client newClient) {
 		this.client = newClient;
+		this.clientName = client != null ? client.getName() : null;
+	}
+	
+	public String getClientName() {
+		return clientName;
 	}
 }

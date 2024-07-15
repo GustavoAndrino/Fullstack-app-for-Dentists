@@ -27,6 +27,7 @@ export const Procedures = () => {
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Nome do Paciente</th>
       <th scope="col">Nome do Procedimento</th>
       <th scope="col">Data do Procedimento</th>
       <th scope="col">Valor do Procedimento</th>
@@ -37,6 +38,7 @@ export const Procedures = () => {
       procedures.map((proc, index) => (
         <tr>
           <th scope='row' key={index}>{index + 1}</th>
+          <td>{proc.clientName}</td>
           <td>{proc.procedure}</td>
           <td>{proc.date}</td>
           <td>{proc.value}</td>

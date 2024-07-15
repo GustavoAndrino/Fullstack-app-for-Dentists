@@ -83,3 +83,12 @@
     font-family: 'Courier New', Courier, monospace;
 
 }
+
+.finalTest2{
+    background-color: rgb(153, 153, 200);
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}

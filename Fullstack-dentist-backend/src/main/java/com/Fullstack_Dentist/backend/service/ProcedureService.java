@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,16 @@ public class ProcedureService {
 		  LocalDateTime fimSemana = inicioSemana.plusDays(6); 
 	       
 	       return procedureRepository.findByDateBetween(inicioSemana, fimSemana);
+	  }
+	  
+	  public Procedure findProceduresByIdAndDate(LocalDateTime date, Long id){
+		  List<Procedure> clientProcedures = procedureRepository.findByClientId(id);
+		  Optional<Procedure> optionalProcedure = clientProcedures.stream()
+		            .filter(procedure -> procedure.getDate().equals(date))
+		            .findFirst();
+
+		    // Return the found procedure if present, otherwise return null
+		    return optionalProcedure.orElse(null);
 	  }
 
 }

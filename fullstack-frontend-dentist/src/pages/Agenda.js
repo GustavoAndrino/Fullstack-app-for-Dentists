@@ -4,6 +4,7 @@ import './Agenda.css';
 import axios from 'axios';
 import { ArrowBackOutline, ArrowForwardOutline } from 'react-ionicons'
 import { Link } from 'react-router-dom';
+import { ModalProcedureInfo } from '../modals/ModalProcedureInfo';
 
 
 const Agenda = ({ days, hours }) => {
@@ -12,6 +13,9 @@ const Agenda = ({ days, hours }) => {
   const [date, setDate] = useState(new Date());
   const [semana, setSemana] = useState([]);
   const [procedures, setProcedures] = useState([]);
+
+  const [selectedProcedure, setSelectedProceudre] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     loadSemana();
@@ -39,6 +43,11 @@ const Agenda = ({ days, hours }) => {
   const loadProcedures = async () => {
     const result = await axios.get(`http://localhost:8080/proceduresofweek?date=${formattedDate}%2000:00`)
     setProcedures(result.data)
+  }
+
+  const openModal = (procedure) => {
+    setSelectedProceudre(procedure)
+    setModalOpen(true)
   }
 
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -125,8 +134,8 @@ const Agenda = ({ days, hours }) => {
                 <td key={`${day}-${hour}`} className='finalTest'>
                   {procedures.map(proc => (
                     (checkProcedureDate(proc.date, semana[index], hour)) && (
-                      <div className='finalTest'>
-                        {proc.procedure}
+                      <div className='finalTest2' onClick={() => openModal(proc)}>
+                        {proc.clientName}
                       </div>
                     )
                   ))}
@@ -136,6 +145,8 @@ const Agenda = ({ days, hours }) => {
           ))}
         </tbody>
       </table>
+
+      <ModalProcedureInfo procedure={selectedProcedure} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
     </div>
   );

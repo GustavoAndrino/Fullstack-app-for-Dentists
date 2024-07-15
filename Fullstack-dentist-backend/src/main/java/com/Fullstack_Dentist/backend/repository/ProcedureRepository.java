@@ -14,6 +14,8 @@ import com.Fullstack_Dentist.backend.model.Procedure;
 public interface ProcedureRepository extends JpaRepository<Procedure, Long> {
 	Optional<Procedure> findByProcedureName(String procedureName);
 	
+	Optional<Procedure> findByClient_id(Long id);
+	
 	List<Procedure> findByClientId(Long clientId);
 	
 	List<Procedure> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
