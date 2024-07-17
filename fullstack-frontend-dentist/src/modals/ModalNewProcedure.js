@@ -81,7 +81,7 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
           <input
             type={"text"}
             className='form-control'
-            placeholder='Email do Paciente'
+            placeholder='dd/MM/aaaa HH:mm'
             name='date'
             value={date}
             onChange={(e) => onInputChange(e)}
@@ -95,7 +95,7 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
           <input
             type={"text"}
             className='form-control'
-            placeholder='Email do Paciente'
+            placeholder='$$$$$'
             name='value'
             value={value}
             onChange={(e) => onInputChange(e)}

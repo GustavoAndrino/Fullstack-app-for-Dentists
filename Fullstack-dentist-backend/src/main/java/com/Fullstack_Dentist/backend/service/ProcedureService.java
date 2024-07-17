@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.Fullstack_Dentist.backend.model.Client;
@@ -22,8 +23,8 @@ public class ProcedureService {
 	@Autowired
 	ProcedureRepository procedureRepository;
 	
-	public List<Procedure> allProcedures(){
-		return procedureRepository.findAll();
+	public List<Procedure> allProcedures(Sort sort){
+		return procedureRepository.findAll(sort);
 	}
 	
 	public Optional<Procedure> procedureByName(String procedureName){

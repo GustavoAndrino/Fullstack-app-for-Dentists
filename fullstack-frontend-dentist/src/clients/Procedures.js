@@ -1,23 +1,33 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { ArrowDownOutline, ArrowUpOutline } from 'react-ionicons'
+
 
 export const Procedures = () => {
 
   var sum = 0;
 
   const [procedures, setProcedures] = useState([]);
+  const [direction, setDirection] = useState("DESC")
+  const [sort, setSort] = useState("date")
 
   useEffect(()=>{
     loadProcedures();
-  }, [])
+  }, [sort, direction])
 
   const loadProcedures = async() => {
-    const result = await axios.get('http://localhost:8080/procedure')
+    const result = await axios.get(`http://localhost:8080/procedure?sortBy=${sort}&direction=${direction}`)
     setProcedures(result.data)
   }
   procedures.map((proc) =>{
     sum = sum + proc.value
   })
+
+  const changeDirection = (columnName) => {
+    const newDirection = direction === "DESC" ? "ASC" : "DESC";
+    setDirection(newDirection)
+    setSort(columnName)
+  }
 
   return (
     <div>
@@ -27,10 +37,54 @@ export const Procedures = () => {
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Nome do Paciente</th>
-      <th scope="col">Nome do Procedimento</th>
-      <th scope="col">Data do Procedimento</th>
-      <th scope="col">Valor do Procedimento</th>
+      <th scope="col" onClick={() => changeDirection("clientName")}>Nome do Paciente
+      {(direction === "ASC" && sort === "clientName") && <ArrowDownOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+              {(direction === "DESC" && sort === "clientName") && <ArrowUpOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+      </th>
+      <th scope="col" onClick={() => changeDirection("procedureName")}>Nome do Procedimento
+      {(direction === "ASC" && sort === "procedureName") && <ArrowDownOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+              {(direction === "DESC" && sort === "procedureName") && <ArrowUpOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+      </th>
+      <th scope="col" onClick={() => changeDirection("date")}>Data do Procedimento
+      {(direction === "ASC" && sort === "date") &&  <ArrowDownOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+              {(direction === "DESC" && sort === "date") && <ArrowUpOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+      </th>
+      <th scope="col" onClick={() => changeDirection("value")}>Valor do Procedimento
+      {(direction === "ASC" && sort === "value") && <ArrowDownOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+              {(direction === "DESC" && sort === "value") && <ArrowUpOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+      </th>
     </tr>
   </thead>
   <tbody>

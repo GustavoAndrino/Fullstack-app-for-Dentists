@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ArrowBackOutline, ArrowForwardOutline } from 'react-ionicons'
 import { Link } from 'react-router-dom';
 import { ModalProcedureInfo } from '../modals/ModalProcedureInfo';
+import { ModalCalendar } from '../modals/ModalCalendar';
 
 
 const Agenda = ({ days, hours }) => {
@@ -16,6 +17,7 @@ const Agenda = ({ days, hours }) => {
 
   const [selectedProcedure, setSelectedProceudre] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen2, setModalOpen2] = useState(false);
 
   useEffect(() => {
     loadSemana();
@@ -45,10 +47,22 @@ const Agenda = ({ days, hours }) => {
     setProcedures(result.data)
   }
 
+  const updateDate = (date) => { //Updates the date used by the agenda to 
+    setDate(date)                //search for procedures based on the modal date choice
+  }
+
   const openModal = (procedure) => {
     setSelectedProceudre(procedure)
     setModalOpen(true)
   }
+
+  const openModal2 = () => {
+    setModalOpen2(true)
+  }
+
+  const close = () => {
+    setModalOpen2(false)
+}
 
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   const formattedDate = date.toLocaleDateString('pt-BR', options);
@@ -109,7 +123,9 @@ const Agenda = ({ days, hours }) => {
                   width="20px"
                 />
               </button>
-              {formattedDate}
+              <nav className='clickMe' onClick={openModal2}>
+                {formattedDate} 
+              </nav>
               <button className='button' onClick={incrementDate}>
                 <ArrowForwardOutline
                   color={'#00000'}
@@ -147,6 +163,7 @@ const Agenda = ({ days, hours }) => {
       </table>
 
       <ModalProcedureInfo procedure={selectedProcedure} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <ModalCalendar isOpen={modalOpen2} onClose={close} updateDate={updateDate} />
 
     </div>
   );

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Clients.css'
 import { ModalNewClient } from '../modals/ModalNewClient';
+import { ArrowDownOutline, ArrowUpOutline } from 'react-ionicons'
 
 
 export const Clients = () => {
@@ -13,16 +14,23 @@ export const Clients = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [direction, setDirection] = useState("ASC")
+
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
   useEffect(() => {
     loadClients();
-  }, [])
+  }, [direction])
 
   const loadClients = async () => {
-    const result = await axios.get("http://localhost:8080/client?sortBy=id&direction=ASC");
+    const result = await axios.get(`http://localhost:8080/client?sortBy=id&direction=${direction}`);
     setClients(result.data);
+  }
+
+  const switchName = () => {
+    const newDirection = direction === "ASC" ? "DESC" : "ASC";
+    setDirection(newDirection)
   }
 
 
@@ -33,14 +41,26 @@ export const Clients = () => {
         <button type='button' className='button3' onClick={openModal}> Novo Paciente </button>
       </div>
       <ModalNewClient
-      isOpen={modalIsOpen} 
-      onClose={closeModal} 
+        isOpen={modalIsOpen}
+        onClose={closeModal}
       />
       <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
+            <th scope="col" onClick={switchName}>
+              Name
+              {direction === "ASC" && <ArrowDownOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+              {direction === "DESC" && <ArrowUpOutline
+                color={'#00000'}
+                height="20px"
+                width="20px"
+              />}
+            </th>
             <th scope="col">E-mail</th>
             <th scope="col">Action</th>
           </tr>

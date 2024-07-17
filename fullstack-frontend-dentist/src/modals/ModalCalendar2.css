@@ -1,0 +1,77 @@
+.MainDiv3 {
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+    justify-content: center;
+    text-align: center;
+    display: block;
+}
+
+
+.months {
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    font-size: large;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 40px);
+    row-gap: 5px;
+    column-gap: 1px;
+    padding: 20px;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.day-box {
+    display: flex;
+    justify-content: center !important; /* Center horizontally */
+    align-items: center !important;  /* Center vertically */
+    height: 30px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(210, 208, 219);
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.day-box.current-day {
+    background-color: #4d4343;
+    color: #fff;
+}
+
+.buttons3 {
+    justify-content: space-between;
+    text-align: center;
+}
+
+.button3-1 {
+    background-color: rgb(210, 208, 219);
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    position: absolute;
+    left: 15px;
+    bottom: 30px;
+}
+
+.button3-2 {
+    background-color: rgb(210, 208, 219);
+    border: none;
+    border-radius: 5px;
+    padding: 5px 12px;
+    position: absolute;
+    right: 15px;
+    bottom: 30px;
+}
+
+.button3-1:hover,
+.button3-2:hover {
+    background-color: #4d4343;
+    color: #fff;
+    transition: 0.3s;
+}

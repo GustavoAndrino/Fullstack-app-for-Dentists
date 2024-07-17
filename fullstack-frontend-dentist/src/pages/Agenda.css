@@ -47,8 +47,16 @@
 }
 
 .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    vertical-align: middle;
+    margin-top: 8px;
+    
+}
+
+.clickMe{
+    cursor: pointer;
 }
 
 .highlight{

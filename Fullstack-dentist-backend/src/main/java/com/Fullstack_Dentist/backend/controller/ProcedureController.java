@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,12 @@ public class ProcedureController {
 	ProcedureService procedureService;
 	
 	@GetMapping("/procedure")
-	public List<Procedure> allProcedures(){
-		return procedureService.allProcedures();
+	public List<Procedure> allProcedures(@RequestParam(required=false) String sortBy, @RequestParam(required=false) String direction){
+		Sort sort = Sort.unsorted();
+		if(sortBy != null) {
+			sort = Sort.by(Sort.Direction.fromString(direction == null ? "ASC" : direction), sortBy);
+		}
+		return procedureService.allProcedures(sort);
 	}
 	
 	@GetMapping("/procedure/name/{procedureName}")

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Clients } from './clients/Clients';
 import { Procedures } from './clients/Procedures';
 import { Procedure } from './clients/Procedure';
+import { TestForModa } from './modals/TestForModa';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path='/clients' element={<Clients/>}/>
           <Route exact path='/procedures' element={<Procedures/>}/>
           <Route exact path='/procedure/:id' element={<Procedure/>}/>
+          <Route exact path='/test' element={<TestForModa/>}/>
 
         </Routes>
 
