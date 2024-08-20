@@ -6,6 +6,8 @@ import { ArrowBackOutline, ArrowForwardOutline } from 'react-ionicons'
 import { Link } from 'react-router-dom';
 import { ModalProcedureInfo } from '../modals/ModalProcedureInfo';
 import { ModalCalendar } from '../modals/ModalCalendar';
+import { ModalButtons } from '../modals/ModalButtons';
+import { ModalNewClient } from '../modals/ModalNewClient';
 
 
 const Agenda = ({ days, hours }) => {
@@ -13,11 +15,18 @@ const Agenda = ({ days, hours }) => {
 
   const [date, setDate] = useState(new Date());
   const [semana, setSemana] = useState([]);
+  const [year, setYear] = useState()
   const [procedures, setProcedures] = useState([]);
+
+  const [dayForModal, setDayForModal] = useState('')
+  const [hourForModal, setHourForModal] = useState('')
+  const [hourPlus, setHourPlus] = useState('')
 
   const [selectedProcedure, setSelectedProceudre] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
+  const [modalOpen3, setModalOpen3] = useState(false)
+  const [modalClientOpen, setModalClientOpen] = useState(false)
 
   useEffect(() => {
     loadSemana();
@@ -60,9 +69,34 @@ const Agenda = ({ days, hours }) => {
     setModalOpen2(true)
   }
 
+  const openModal3 = (day, hour) => {
+    const finalDay = day +'/' + year
+    setDayForModal(finalDay)
+    setHourForModal(hour)
+
+    console.log(hour)
+
+    const [hour1, minute1] = hour.split(':')
+    const hourPlus = Number(hour1) + 1
+
+    const hourFinal = hourPlus + ':' + minute1
+    setHourPlus(hourFinal)
+
+    setModalOpen3(true)
+  }
+
   const close = () => {
     setModalOpen2(false)
-}
+  }
+
+  const close2 = () => {
+    setModalOpen3(false)
+  }
+
+  const updateCalendar2 = () => {
+    console.log("fixed")
+    loadProcedures()
+  }
 
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
   const formattedDate = date.toLocaleDateString('pt-BR', options);
@@ -76,6 +110,7 @@ const Agenda = ({ days, hours }) => {
     // Calculate the start of the current week (Monday)
     const inicioSemana = new Date(date);
     const dayOfWeek = inicioSemana.getDay();
+    setYear(inicioSemana.getFullYear())
     const offset = (dayOfWeek === 0) ? -6 : 1 - dayOfWeek; // Adjust for Sunday
     inicioSemana.setDate(inicioSemana.getDate() + offset);
 
@@ -91,20 +126,77 @@ const Agenda = ({ days, hours }) => {
   }
 
   const checkProcedureDate = (date, day, hour) => {
-    const dateObj = new Date(date);
-    const newDate = day + '/2024 ' + hour //PEGAR ANO ATUAL E NÃO SÓ 2024
+    const date2 = day + '/' + year
+    const [day1, hour1] = date.split(' ')
 
-    if (newDate == date) {
-      return true;
-    } else {
-      return false;
-    }
+    const firstHour = formatDate(hour1)
+    const secondHour = formatDate(hour)
+    const thirdHour = secondHour + 100
+    
+    return firstHour >= secondHour && firstHour < thirdHour && day1 === date2
   }
 
-  procedures.map(proc =>{
-    console.log('space')
-    console.log(proc.date)
-  })
+  const formatDate = (hour) => {
+
+    const [hour1, minute] = hour.split(":")
+    const numberString = hour1 + minute
+    const result = Number(numberString)
+
+    return result
+  }
+
+  const getTopPosition = (date) => {
+    const [date1, time] = date.split(' ')
+    const [hour, minute] = time.split(':').map(Number)
+
+    return minute;
+  }
+
+  const getHeight = (endDate, date) => {
+    const start = parseDate(date);
+    const end = parseDate(endDate);
+
+    const difference = end.getTime() - start.getTime();
+    const result = difference / (1000 * 60); // Convert milliseconds to minutes
+    return result;
+  }
+
+  const parseDate = (dateString) => {
+    const [datePart, timePart] = dateString.split(' ');
+    const [day, month, year] = datePart.split('/').map(Number);
+    const [hours, minutes] = timePart.split(':').map(Number);
+
+    return new Date(year, month - 1, day, hours, minutes);
+  }
+
+  const finalDate = (startDate, endDate) => {
+    const [x, startHour] = startDate.split(' ')
+    const [y, endHour] = endDate.split(' ')
+
+    const result = `${startHour} - ${endHour}`
+
+    return result;
+  }
+
+  const openModalNewClient = () => {
+    setModalClientOpen(true)
+    close2()
+  }
+
+  const onCloseModalClient = () => {
+    setModalClientOpen(false)
+    loadProcedures()
+  }
+
+  const checkBackgroundColor = (id) => {
+    console.log(id)
+    if(id === 'Não Marcar'){
+      return 'rgb(200, 200, 0)'
+      
+    } else{
+      return 'rgb(153, 186, 155)'
+    }
+  }
 
   return (
     <div className="agenda">
@@ -124,7 +216,7 @@ const Agenda = ({ days, hours }) => {
                 />
               </button>
               <nav className='clickMe' onClick={openModal2}>
-                {formattedDate} 
+                {formattedDate}
               </nav>
               <button className='button' onClick={incrementDate}>
                 <ArrowForwardOutline
@@ -145,13 +237,23 @@ const Agenda = ({ days, hours }) => {
         <tbody>
           {hours.map(hour => (
             <tr key={hour}>
-              <th scope="row">{hour}</th>
+              <th scope="row" className='center'>{hour}</th>
               {days.map((day, index) => (
-                <td key={`${day}-${hour}`} className='finalTest'>
+                <td key={`${day}-${hour}`} className='finalTest' onClick={() => openModal3(semana[index], hour)}>
                   {procedures.map(proc => (
                     (checkProcedureDate(proc.date, semana[index], hour)) && (
-                      <div className='finalTest2' onClick={() => openModal(proc)}>
-                        {proc.clientName}
+                      <div className='finalTest2'
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevents the click event from propagating to parent elements
+                        openModal(proc); // Calls the function to open the modal
+                      }}
+                        style={{
+                          top: `${getTopPosition(proc.date)}px`,
+                          height: `${getHeight(proc.endDate, proc.date)}px`,
+                          backgroundColor:`${checkBackgroundColor(proc.clientName)}`                         
+                        }}
+                      >
+                        {`${proc.clientName}`}<br />{finalDate(proc.date, proc.endDate)}
                       </div>
                     )
                   ))}
@@ -162,8 +264,13 @@ const Agenda = ({ days, hours }) => {
         </tbody>
       </table>
 
+      <ModalButtons isOpen={modalOpen3} clientModal={openModalNewClient} 
+      updateCalendar={updateCalendar2} onClose={close2} 
+      clickedDay={dayForModal} clickedHour={hourForModal}
+      clickedHourPlus={hourPlus}/>
       <ModalProcedureInfo procedure={selectedProcedure} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
       <ModalCalendar isOpen={modalOpen2} onClose={close} updateDate={updateDate} />
+      <ModalNewClient isOpen={modalClientOpen} onClose={onCloseModalClient} />
 
     </div>
   );

@@ -1,11 +1,17 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import {ModalNewClient2} from './ModalNewClient2.css'
+import { ModalNewClient2 } from './ModalNewClient2.css'
+import { ModalNewProcedure } from './ModalNewProcedure';
 
 Modal.setAppElement('#root');
 
 const customStyles = {
+
+  overlay: {
+    zIndex: 30, // Ensures overlay is on top of everything else
+  },
+
   content: {
     top: '50%',
     left: '50%',
@@ -25,6 +31,10 @@ export const ModalNewClient = ({ isOpen, onClose, onSubmit }) => {
 
   const [error2, setError2] = useState("");
 
+  const [modalIsOpen2, setModalIsOpen2] = useState(false)
+
+  const [id, setId] = useState(null)
+
   const [client, setClient] = useState({
     name: "",
     email: "",
@@ -43,8 +53,10 @@ export const ModalNewClient = ({ isOpen, onClose, onSubmit }) => {
       if (client.name.length < 1 || client.email.length < 1) {
         setError2("Empty Value")
       } else {
-        await axios.post("http://localhost:8080/client", client)
-        onClose();
+        const response = await axios.post("http://localhost:8080/client", client)
+        const savedClient = response.data
+        setModalIsOpen2(true)
+        setId(savedClient.id)
       }
     } catch (error) {
       if (error.response && error.response.status == 409) {
@@ -53,6 +65,11 @@ export const ModalNewClient = ({ isOpen, onClose, onSubmit }) => {
         setError("Unexpected error")
       }
     }
+  }
+
+  const onCloseFinal = () => {
+    setModalIsOpen2(false)
+    onClose()
   }
 
   return (
@@ -91,6 +108,10 @@ export const ModalNewClient = ({ isOpen, onClose, onSubmit }) => {
           <button type='button' onClick={onClose}>Cancel</button>
         </div>
       </form>
+      <ModalNewProcedure isOpen={modalIsOpen2}
+                    onClose={onCloseFinal}
+                    id={id}
+                />
     </Modal>
   )
 }

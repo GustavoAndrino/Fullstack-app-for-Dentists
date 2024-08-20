@@ -20,6 +20,8 @@ public class Procedure {
 	private String procedureName;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime date;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	private LocalDateTime endDate;
 	private Double value;
 	private String clientName;
 
@@ -32,10 +34,11 @@ public class Procedure {
 		
 	}
 	
-	public Procedure(String procedureName, LocalDateTime date, Double value) {
+	public Procedure(String procedureName, LocalDateTime date, LocalDateTime endDate, Double value) {
 		super();
 		this.procedureName = procedureName;
 		this.date = date;
+		this.endDate = endDate;
 		this.value = value;
 	}
 	
@@ -66,4 +69,19 @@ public class Procedure {
 	public String getClientName() {
 		return clientName;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public LocalDateTime getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDateTime endDate) {
+		this.endDate = endDate;
+	}
+	
+	
+	
 }

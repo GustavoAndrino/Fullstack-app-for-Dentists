@@ -32,7 +32,7 @@ public class ClientService {
 		    return ResponseEntity.status(HttpStatus.CREATED).body(savedClient);
 	}
 	
-	public List<Client> allClients(Sort sort){
+	public List<Client> allClients(Sort sort)	{
 		return clientRepository.findAll(sort);
 	}
 	
@@ -50,5 +50,9 @@ public class ClientService {
 		procedure.setClient(client);
 		client.addProcedure(procedure);
 		return clientRepository.save(client);		
+	}
+	
+	public List<Client> clientByName(Sort sort, String name){
+		return clientRepository.findByName(name, sort);
 	}
 }

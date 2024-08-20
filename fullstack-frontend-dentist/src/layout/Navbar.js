@@ -41,7 +41,7 @@ const Navbar = () => {
                 <form class="container-fluid justify-content-end">
                     <Link class="btn btn-outline-info me-2" type="button" to='/'>Agenda</Link>
                     <Link class="btn btn-outline-primary me-2" to='/clients'>Pacientes</Link>
-                    <Link class="btn btn-outline-primary me-2" type="button" to='/procedures'>Todos Procedimentos</Link>
+                    <Link class="btn btn-outline-primary me-2" type="button" to='/procedures'>Finanças</Link>
                     {location.pathname === '/clients' && (
                         <button className="btn btn-outline-success me-2" type="button" onClick={triggerModal}>Novo Paciente</button>
                     )}

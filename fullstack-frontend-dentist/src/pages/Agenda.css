@@ -44,6 +44,8 @@
 
 .agenda{
     margin-top: 10px;
+    z-index: 30;
+    
 }
 
 .center{
@@ -60,7 +62,7 @@
 }
 
 .highlight{
-    background-color: rgb(153, 153, 200) !important;
+    background-color: rgb(112, 141, 128) !important;
     color: white !important;
 }
 
@@ -84,19 +86,37 @@
 }
 
 .finalTest{
+    position: relative;
     background-color: rgb(153, 153, 200);
     color: white;
     align-items: center;
     justify-content: space-between;
-    font-family: 'Courier New', Courier, monospace;
+
+}
+
+.finalTest:hover{
+    border: 2px solid rgb(2, 46, 18);
+    transition: 0.5s;
+    cursor: pointer;
 
 }
 
 .finalTest2{
-    background-color: rgb(153, 153, 200);
+    position: absolute;
+    background-color: rgb(153, 186, 155);
     color: white;
     align-items: center;
     justify-content: space-between;
     font-family: 'Courier New', Courier, monospace;
     cursor: pointer;
+    border-radius: 5px;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    border: 2px solid rgb(2, 46, 18);
 }
+
+.table-custom tbody tr {
+    height: 60px; /* Adjust the height as needed */
+    position: relative; 
+  }

@@ -30,13 +30,17 @@ public class ClientController {
 	@PostMapping("/client")
 public ResponseEntity<?> addNewClient(@RequestBody Client newClient){
 		return clientService.newClient(newClient);
-	}
+	} 
 	
 	@GetMapping("/client")
-public List<Client> getAllClients(@RequestParam(required=false) String sortBy, @RequestParam(required=false) String direction){
+public List<Client> getAllClients(@RequestParam(required=false) String sortBy, @RequestParam(required=false) String direction, @RequestParam(required=false) String name){
 		Sort sort = Sort.unsorted();
 		if(sortBy != null) {
 			sort = Sort.by(Sort.Direction.fromString(direction == null ? "ASC" : direction), sortBy);
+		}
+		
+		if(!name.isEmpty()) {
+			return clientService.clientByName(sort, name);
 		}
 		return clientService.allClients(sort);
 	}

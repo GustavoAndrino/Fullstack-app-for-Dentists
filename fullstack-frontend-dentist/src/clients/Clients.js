@@ -16,15 +16,25 @@ export const Clients = () => {
 
   const [direction, setDirection] = useState("ASC")
 
-  const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
+  const [name, setName] = useState("")
 
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => {
+    setModalIsOpen(false);
+    loadClients()
+  }
   useEffect(() => {
     loadClients();
-  }, [direction])
+  }, [direction, name])
+
+  const onInputChange = (e) => {
+    setName(e.target.value)
+    console.log(e)
+    console.log(name)
+  }
 
   const loadClients = async () => {
-    const result = await axios.get(`http://localhost:8080/client?sortBy=id&direction=${direction}`);
+    const result = await axios.get(`http://localhost:8080/client?sortBy=name&direction=${direction}&name=${name}`);
     setClients(result.data);
   }
 
@@ -43,6 +53,14 @@ export const Clients = () => {
       <ModalNewClient
         isOpen={modalIsOpen}
         onClose={closeModal}
+      />
+      <input
+        type={"text"}
+        className='search-bar'
+        placeholder='Nome do Paciente'
+        name='name'
+        value={name}
+        onChange={(e) => onInputChange(e)}
       />
       <table class="table">
         <thead>
@@ -83,3 +101,4 @@ export const Clients = () => {
     </div>
   )
 }
+//2, 46, 18 rgb para duda

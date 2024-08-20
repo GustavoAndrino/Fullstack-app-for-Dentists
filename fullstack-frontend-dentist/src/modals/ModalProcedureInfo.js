@@ -5,6 +5,10 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const customStyles = {
+  overlay: {
+    zIndex: 30, // Ensures overlay is on top of everything else
+  },
+  
   content: {
     top: '50%',
     left: '50%',
@@ -39,8 +43,9 @@ export const ModalProcedureInfo = ({ procedure, onClose, isOpen }) => {
           <p>{procedure.value}</p>
         </div>
         <div>
-          <h3>Detalhes: </h3>
+          <h3>Tratamento realizado: </h3>
         </div>
+        <button>Detalhes</button>
         <button onClick={onClose}>close</button>
       </div>
 

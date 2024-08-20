@@ -6,6 +6,11 @@ import { ModalCalendar2 } from './ModalCalendar2.css'
 Modal.setAppElement('#root');
 
 const customStyles = {
+
+  overlay: {
+    zIndex: 30, // Ensures overlay is on top of everything else
+  },
+  
   content: {
     top: '50%',
     left: '50%',

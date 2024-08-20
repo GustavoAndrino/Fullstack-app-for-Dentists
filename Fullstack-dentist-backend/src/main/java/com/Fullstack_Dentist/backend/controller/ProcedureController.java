@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,4 +50,19 @@ public class ProcedureController {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm") LocalDateTime date) {
         return procedureService.findProcedureByWeek(date);
     }
+	
+	@GetMapping("/procedure/byId/{id}")
+	public Procedure findProcedureById(@PathVariable Long id) {
+		return procedureService.findProcedureById(id);
+	}
+	
+	@DeleteMapping("/procedure/del/{id}")
+	public String deleteProcedure(@PathVariable Long id) {
+		return procedureService.deleteProcedureById(id);
+	}
+	
+	@PutMapping("/procedure/update/{id}")
+	public Procedure updateProcedureById(@RequestBody(required=true) Procedure procedure, @PathVariable Long id) {
+		return procedureService.updateProcedure(procedure, id);
+	}
 }

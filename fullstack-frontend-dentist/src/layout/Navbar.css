@@ -1,6 +1,6 @@
 .custom-navbar {
     /*border-bottom: 0.1px solid black; /* Black border with 1px width */
-    background: rgb(210, 208, 219);
+    background: rgb(112, 141, 128);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1 );
 }
 
@@ -9,10 +9,11 @@
     border-bottom: 1px solid black;
     padding: 5px 10px;
     border-radius: 5px;
+    color: rgb(2, 46, 18);
 }
 
 .navbar-brand:hover{
     color: white;
-    background-color: black;
+    background-color: rgb(2, 46, 18);
     transition: 0.3s;
 }

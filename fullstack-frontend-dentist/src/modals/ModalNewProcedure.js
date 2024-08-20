@@ -8,6 +8,11 @@ import { reloadProcedure } from '../clients/Procedure'; // Import the function
 Modal.setAppElement('#root');
 
 const customStyles = {
+
+  overlay: {
+    zIndex: 35, // Ensures overlay is on top of everything else
+  },
+
   content: {
     top: '50%',
     left: '50%',
@@ -32,10 +37,11 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
   const [procedure2, setProcedure] = useState({
     procedure: "",
     date: "",
+    endDate: "",
     value: ""
   })
 
-  const { procedure, date, value } = procedure2
+  const { procedure, date, endDate, value } = procedure2
 
   const onInputChange = (e) => {
     setProcedure({ ...procedure2, [e.target.name]: e.target.value })
@@ -84,6 +90,20 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
             placeholder='dd/MM/aaaa HH:mm'
             name='date'
             value={date}
+            onChange={(e) => onInputChange(e)}
+          />
+          {error2 && <div className='text-danger'>{error2}</div>}
+          {error && <div className='text-danger'>{error}</div>}
+        </label>
+        <br />
+        <label>
+          Data e hora final:
+          <input
+            type={"text"}
+            className='form-control'
+            placeholder='dd/MM/aaaa HH:mm'
+            name='endDate'
+            value={endDate}
             onChange={(e) => onInputChange(e)}
           />
           {error2 && <div className='text-danger'>{error2}</div>}
