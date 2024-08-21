@@ -61,6 +61,9 @@ export const ModalButtons = ({ isOpen, updateCalendar, onClose, clickedDay, clic
 
     const Close = () => {
         updateCalendar()
+        setIsOpen(false)
+        setVisibility(true)
+        setPacienteExistente(false)
         onClose()
     }
 
