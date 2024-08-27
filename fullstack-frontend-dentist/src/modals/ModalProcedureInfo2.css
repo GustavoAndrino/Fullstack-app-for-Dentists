@@ -1,0 +1,14 @@
+h3 {
+    color: rgb(2, 46, 18);
+    font-family:'Courier New', Courier, monospace;
+}
+
+h2 {
+    color: rgb(2, 46, 18);
+    justify-content: center;
+    font-family:'Courier New', Courier, monospace;
+}
+
+input{
+    background-color: rgb(218, 250, 222);
+}

@@ -26,7 +26,7 @@ const customStyles = {
   },
 };
 
-export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
+export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure }) => {
 
   const navigate = useNavigate();
 
@@ -38,10 +38,11 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
     procedure: "",
     date: "",
     endDate: "",
-    value: ""
+    value: "",
+    info: ""
   })
 
-  const { procedure, date, endDate, value } = procedure2
+  const { procedure, date, endDate, value, info } = procedure2
 
   const onInputChange = (e) => {
     setProcedure({ ...procedure2, [e.target.name]: e.target.value })
@@ -83,7 +84,7 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
         </label>
         <br />
         <label>
-          Data e hora:
+          Hora de início:
           <input
             type={"text"}
             className='form-control'
@@ -97,7 +98,7 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
         </label>
         <br />
         <label>
-          Data e hora final:
+          Hora de término:
           <input
             type={"text"}
             className='form-control'
@@ -118,6 +119,25 @@ export const ModalNewProcedure = ({ isOpen, onClose, id, onAddProcedure}) => {
             placeholder='$$$$$'
             name='value'
             value={value}
+            onChange={(e) => onInputChange(e)}
+          />
+          {error2 && <div className='text-danger'>{error2}</div>}
+          {error && <div className='text-danger'>{error}</div>}
+        </label>
+        <br />
+        <label>
+          Tratamento realizado:
+          <textarea
+            type={"text"}
+            className='form-control'
+            placeholder='Procedure information here'
+            name='info'
+            value={info}
+            style={{
+              height: '100px',
+              textAlign: 'justify',
+              fontFamily: 'Courier New, Courier, monospace'
+            }}
             onChange={(e) => onInputChange(e)}
           />
           {error2 && <div className='text-danger'>{error2}</div>}

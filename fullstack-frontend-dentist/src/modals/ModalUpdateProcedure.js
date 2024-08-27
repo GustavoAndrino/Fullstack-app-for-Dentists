@@ -12,7 +12,7 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        width: '400px', // Set your desired width
+        width: '450px', // Set your desired width
         height: '350px', // Set your desired height
         padding: '20px', // Optional padding
     },
@@ -26,7 +26,7 @@ export const ModalUpdateProcedure = ({ isOpen, onClose, id, }) => {
 
     const [procedure2, setProcedure] = useState({})
 
-    const { procedure, date, value } = procedure2
+    const { procedure, date, endDate, value, info } = procedure2
 
     useEffect(() => {
         if (id) {
@@ -59,7 +59,9 @@ export const ModalUpdateProcedure = ({ isOpen, onClose, id, }) => {
                 const payload = {
                     procedure: procedure,
                     date: date,
-                    value: value
+                    endDate: endDate,
+                    value: value,
+                    info: info
                 };
                 await axios.put(`http://localhost:8080/procedure/update/${id}`, payload)
                 onClose();
@@ -90,13 +92,27 @@ export const ModalUpdateProcedure = ({ isOpen, onClose, id, }) => {
                 </label>
                 <br />
                 <label>
-                    Data e hora:
+                    Hora de início:
                     <input
                         type={"text"}
                         className='form-control'
                         placeholder='dd/MM/aaaa HH:mm'
                         name='date'
                         value={date}
+                        onChange={(e) => onInputChange(e)}
+                    />
+                    {error2 && <div className='text-danger'>{error2}</div>}
+                    {error && <div className='text-danger'>{error}</div>}
+                </label>
+                <br />
+                <label>
+                    Hora de término:
+                    <input
+                        type={"text"}
+                        className='form-control'
+                        placeholder='dd/MM/aaaa HH:mm'
+                        name='endDate'
+                        value={endDate}
                         onChange={(e) => onInputChange(e)}
                     />
                     {error2 && <div className='text-danger'>{error2}</div>}
@@ -111,6 +127,25 @@ export const ModalUpdateProcedure = ({ isOpen, onClose, id, }) => {
                         placeholder='$$$$$'
                         name='value'
                         value={value}
+                        onChange={(e) => onInputChange(e)}
+                    />
+                    {error2 && <div className='text-danger'>{error2}</div>}
+                    {error && <div className='text-danger'>{error}</div>}
+                </label>
+                <br />
+                <label>
+                    Tratamento realizado:
+                    <textarea
+                        type={"text"}
+                        className='form-control'
+                        placeholder='Procedure information here'
+                        name='info'
+                        value={info}
+                        style={{
+                            height: '100px',
+                            textAlign: 'justify',
+                            fontFamily: 'Courier New, Courier, monospace'
+                        }}
                         onChange={(e) => onInputChange(e)}
                     />
                     {error2 && <div className='text-danger'>{error2}</div>}

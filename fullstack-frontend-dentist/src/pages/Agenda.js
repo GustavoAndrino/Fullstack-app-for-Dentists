@@ -93,6 +93,11 @@ const Agenda = ({ days, hours }) => {
     setModalOpen3(false)
   }
 
+  const close3 = () => {
+    setModalOpen(false)
+    updateCalendar2()
+  }
+
   const updateCalendar2 = () => {
     console.log("fixed")
     loadProcedures()
@@ -268,7 +273,7 @@ const Agenda = ({ days, hours }) => {
       updateCalendar={updateCalendar2} onClose={close2} 
       clickedDay={dayForModal} clickedHour={hourForModal}
       clickedHourPlus={hourPlus}/>
-      <ModalProcedureInfo procedure={selectedProcedure} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <ModalProcedureInfo procedureOld={selectedProcedure} isOpen={modalOpen} onClose={close3} />
       <ModalCalendar isOpen={modalOpen2} onClose={close} updateDate={updateDate} />
       <ModalNewClient isOpen={modalClientOpen} onClose={onCloseModalClient} />
 

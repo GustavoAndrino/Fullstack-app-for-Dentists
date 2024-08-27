@@ -43,8 +43,17 @@ public class ProcedureService {
 	  public List<Procedure> findProcedureByWeek(LocalDateTime date){
 		  LocalDateTime inicioSemana = date.minusDays(date.getDayOfWeek().getValue()-1);
 		  LocalDateTime fimSemana = inicioSemana.plusDays(6); 
+
+		  
+		  List<Procedure> list = procedureRepository.findByDateBetween(inicioSemana, fimSemana);
+
 	       
 	       return procedureRepository.findByDateBetween(inicioSemana, fimSemana);
+	  }
+	  
+	  public List<Procedure> findProcedureByDateSpace (LocalDateTime date, LocalDateTime date2, Sort sort){
+		  
+		  return procedureRepository.findByDateBetween(date, date2, sort);
 	  }
 	  
 	  public Procedure findProceduresByIdAndDate(LocalDateTime date, Long id){
@@ -72,8 +81,10 @@ public class ProcedureService {
 	public Procedure updateProcedure (Procedure newProcedure, Long id) {
 		return procedureRepository.findById(id).map(procedure -> {
 			procedure.setDate(newProcedure.getDate());
+			procedure.setEndDate(newProcedure.getEndDate());
 			procedure.setProcedure(newProcedure.getProcedure());
 			procedure.setValue(newProcedure.getValue());
+			procedure.setInfo(newProcedure.getInfo());
 			return procedureRepository.save(procedure);
 		}).orElseThrow(() -> new ClientNotFoundException(id));
 	}

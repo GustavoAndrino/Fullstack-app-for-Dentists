@@ -4,6 +4,10 @@ import Modal from 'react-modal'
 Modal.setAppElement('#root');
 
 const customStyles = {
+    overlay: {
+        zIndex: 31, // Ensures overlay is on top of everything else
+    },
+
     content: {
         top: '50%',
         left: '50%',

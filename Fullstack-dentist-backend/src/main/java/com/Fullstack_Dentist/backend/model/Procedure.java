@@ -6,10 +6,12 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity(name = "medicalProcedure")
@@ -23,6 +25,10 @@ public class Procedure {
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime endDate;
 	private Double value;
+	
+	@Column(columnDefinition = "MEDIUMTEXT")
+	private String info;
+	
 	private String clientName;
 
 
@@ -34,12 +40,13 @@ public class Procedure {
 		
 	}
 	
-	public Procedure(String procedureName, LocalDateTime date, LocalDateTime endDate, Double value) {
+	public Procedure(String procedureName, LocalDateTime date, LocalDateTime endDate, Double value, String info) {
 		super();
 		this.procedureName = procedureName;
 		this.date = date;
 		this.endDate = endDate;
 		this.value = value;
+		this.info = info;
 	}
 	
 	public String getProcedure() {
@@ -80,6 +87,14 @@ public class Procedure {
 
 	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
 	}
 	
 	

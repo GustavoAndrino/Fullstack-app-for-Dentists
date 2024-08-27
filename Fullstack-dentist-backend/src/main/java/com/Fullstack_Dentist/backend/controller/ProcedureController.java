@@ -51,6 +51,20 @@ public class ProcedureController {
         return procedureService.findProcedureByWeek(date);
     }
 	
+	@GetMapping("/proceduresBetween")
+    public List<Procedure> getProceduresBetween(
+            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm") LocalDateTime date, 
+            @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm") LocalDateTime date2,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String direction) {
+
+        Sort sort = Sort.unsorted();
+        if (sortBy != null) {
+            sort = Sort.by(Sort.Direction.fromString(direction == null ? "ASC" : direction), sortBy);
+        }
+        return procedureService.findProcedureByDateSpace(date, date2, sort);
+    }
+	
 	@GetMapping("/procedure/byId/{id}")
 	public Procedure findProcedureById(@PathVariable Long id) {
 		return procedureService.findProcedureById(id);

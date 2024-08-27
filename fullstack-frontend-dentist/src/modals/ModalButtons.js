@@ -5,6 +5,7 @@ import { ModalCalendar2 } from './ModalCalendar2.css'
 import axios from 'axios';
 import { ModalNewClient } from './ModalNewClient';
 import { ModalNewProcedure } from './ModalNewProcedure';
+import './ModalButtons2.css';
 
 Modal.setAppElement('#root');
 
@@ -24,6 +25,10 @@ const customStyles = {
         width: '400px', // Set your desired width
         height: '370px', // Set your desired height
         padding: '20px', // Optional padding
+        backgroundColor: 'rgb(153, 186, 155, 85%)',
+        overflow: 'auto',
+        boxShadow: '2px 2px 10px 1px rgba(0, 0, 0, 0.2)',
+        border: 'solid 2px rgba(0, 0, 0, 0.2)'
     },
 };
 
@@ -64,6 +69,7 @@ export const ModalButtons = ({ isOpen, updateCalendar, onClose, clickedDay, clic
         setIsOpen(false)
         setVisibility(true)
         setPacienteExistente(false)
+        setNMarcar(false)
         onClose()
     }
 
@@ -213,7 +219,7 @@ export const ModalButtons = ({ isOpen, updateCalendar, onClose, clickedDay, clic
     return (
         <Modal isOpen={isOpen} onRequestClose={Close} style={customStyles}>
             {visibility && (
-                <div className='MainDiv3'>
+                <div className='MainDiv4'>
                     <button onClick={clientModalFunction}>Novo Paciente</button>
                     <button onClick={pacienteTrue}>Paciente existente</button>
                     <button onClick={nMarcarTrue}>Não marcar</button>
@@ -253,6 +259,7 @@ export const ModalButtons = ({ isOpen, updateCalendar, onClose, clickedDay, clic
 
             {nMarcar && (
                 <div className='nao-marcar'>
+                    <div>Data:</div>
                     <input
                         type={"text"}
                         className='days-hours'
@@ -261,6 +268,7 @@ export const ModalButtons = ({ isOpen, updateCalendar, onClose, clickedDay, clic
                         value={day}
                         onChange={(e) => onInputChange2(e)}
                     />
+                    <div>Hora de início:</div>
                     <input
                         type={"text"}
                         className='days-hours'
@@ -269,6 +277,7 @@ export const ModalButtons = ({ isOpen, updateCalendar, onClose, clickedDay, clic
                         value={startHour}
                         onChange={(e) => onInputChange3(e)}
                     />
+                    <div>Hora de término:</div>
                     <input
                         type={"text"}
                         className='days-hours'
@@ -278,6 +287,7 @@ export const ModalButtons = ({ isOpen, updateCalendar, onClose, clickedDay, clic
                         onChange={(e) => onInputChange4(e)}
                     />
                     {error && <div className='text-danger'>{error}</div>}
+                    <p></p>
 
                     <button onClick={buttonPage}>Voltar</button>
                     <button onClick={naoMarcar}>Apply</button>

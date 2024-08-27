@@ -120,3 +120,16 @@
     height: 60px; /* Adjust the height as needed */
     position: relative; 
   }
+
+
+  .makeMePretty{
+    cursor: pointer;
+    padding: 3px;
+  }
+  .makeMePretty:hover {
+    
+    background-color: rgb(112, 141, 128);
+    color: white;
+    transition: 0.3s;
+
+  }
